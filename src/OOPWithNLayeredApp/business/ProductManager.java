@@ -1,9 +1,17 @@
 package OOPWithNLayeredApp.business;
 
+import OOPWithNLayeredApp.dataAccess.HibernateProductDao;
 import OOPWithNLayeredApp.dataAccess.JdbcProductDao;
+import OOPWithNLayeredApp.dataAccess.ProductDao;
 import OOPWithNLayeredApp.entities.Product;
 
 public class ProductManager {
+    private ProductDao productDao;
+
+    public ProductManager(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
     public void add(Product product) throws Exception {
         //business rules
 
@@ -11,7 +19,6 @@ public class ProductManager {
         if (product.getUnitPrice() < 10) {
             throw new Exception("Product price cannot be lower 10!");
         }
-        JdbcProductDao productDao = new JdbcProductDao();
         productDao.add(product);
     }
 }
